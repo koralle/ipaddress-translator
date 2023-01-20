@@ -1,0 +1,48 @@
+*
+
+!README.md
+
+!.gitignore
+
+!.npmrc
+!package.json
+!pnpm-lock.yaml
+
+# GitHub Actions
+!.github
+!.github/*
+!.github/**/*.yaml
+
+# VSCode
+!.vscode/*
+
+# front-end
+!src
+!src/*
+!src/**/*.ts
+!src/**/*.tsx
+
+# back-end
+!/src-tauri
+!/src-tauri/*
+!/src-tauri/**/*.rs
+!/src-tauri/icons
+!/src-tauri/icons/*
+
+# ESLint
+!.eslintrc.yaml
+!.eslintignore
+
+# Prettier
+!.prettierrc.yaml
+!.prettierignore
+
+# Next.js
+!next.config.js
+!next-env.d.ts
+
+# Jest
+!jest.config.ts
+
+# TypeScript
+!tsconfig.json
