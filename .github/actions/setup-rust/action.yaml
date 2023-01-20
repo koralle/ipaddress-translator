@@ -1,0 +1,29 @@
+name: "Setup Rust"
+description: "Setup Rust"
+
+inputs:
+  platform:
+    description: ""
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    - name: Install Rust stable
+      uses: actions-rs/toolchain@v1.0.6
+      with:
+        profile: minimal
+        toolchain: stable
+        override: true
+        components: rustfmt, clippy
+
+    - name: Setup Rust cache
+      uses: actions/cache@v3.2.3
+      with:
+        path: |
+          ./src-tauri/target
+          ~/.cargo
+        key: ${{ inputs.platform }}-rust-${{ hashFiles('**/Cargo.lock')}}
+        restore-keys: |
+          ${{ inputs.platform }}-rust-
+

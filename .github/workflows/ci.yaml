@@ -1,0 +1,163 @@
+name: CI
+
+on:
+  - push
+  - pull_request
+
+jobs:
+  eslint:
+    runs-on: ubuntu-22.04
+
+    name: ESLint
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3.3.0
+
+      - name: Setup with pnpm
+        uses: ./.github/actions/setup-frontend-with-pnpm
+        with:
+          platform: ubuntu-22.04
+
+      - name: ESLint
+        working-directory: .
+        run: |
+          pnpm run lint
+
+  prettier:
+    runs-on: ubuntu-22.04
+    needs: eslint
+
+    name: Prettier
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3.3.0
+
+      - name: Setup with pnpm
+        uses: ./.github/actions/setup-frontend-with-pnpm
+        with:
+          platform: ubuntu-22.04
+
+      - name: Prettier
+        working-directory: .
+        run: |
+          pnpm run fmt:check
+
+  clippy:
+    runs-on: ubuntu-22.04
+
+    name: Clippy
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3.3.0
+
+      - name: Create "./dist"
+        run: |
+          mkdir ./dist
+
+      - name: Install dependencies (Ubuntu Only)
+        uses: ./.github/actions/install-deps-for-tauri-on-ubuntu
+        with:
+          platform: ubuntu-22.04
+
+      - name: Setup Rust
+        uses: ./.github/actions/setup-rust
+        with:
+          platform: ubuntu-22.04
+
+      - name: Clippy
+        working-directory: ./src-tauri
+        run: |
+          cargo clippy --all-targets --all-features -- -D warnings
+
+  rustfmt:
+    needs: clippy
+    runs-on: ubuntu-22.04
+
+    name: Rustfmt
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3.3.0
+
+      - name: Create "./dist"
+        run: |
+          mkdir ./dist
+
+      - name: Install dependencies (Ubuntu Only)
+        uses: ./.github/actions/install-deps-for-tauri-on-ubuntu
+        with:
+          platform: ubuntu-22.04
+
+      - name: Setup Rust
+        uses: ./.github/actions/setup-rust
+        with:
+          platform: ubuntu-22.04
+
+      - name: Clippy
+        working-directory: ./src-tauri
+        run: |
+          cargo clippy --all-targets --all-features -- -D warnings
+
+  test-rust:
+    strategy:
+      fail-fast: true
+      matrix:
+        platform: [macos-12, ubuntu-22.04, windows-2022]
+
+    needs: rustfmt
+    runs-on: ${{ matrix.platform }}
+
+    name: Test (Rust)
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3.3.0
+
+      - name: Create "./dist"
+        run: |
+          mkdir ./dist
+
+      - name: Install dependencies (Ubuntu Only)
+        uses: ./.github/actions/install-deps-for-tauri-on-ubuntu
+        with:
+          platform: ${{ matrix.platform }}
+
+      - name: Setup Rust
+        uses: ./.github/actions/setup-rust
+        with:
+          platform: ${{ matrix.platform }}
+
+  build:
+    strategy:
+      fail-fast: true
+      matrix:
+        platform: [macos-12, ubuntu-22.04, windows-2022]
+
+    needs: [prettier, test-rust]
+    runs-on: ${{ matrix.platform }}
+
+    name: Build
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3.3.0
+
+      - name: Create "./dist"
+        run: |
+          mkdir ./dist
+
+      - name: Setup with pnpm
+        uses: ./.github/actions/setup-frontend-with-pnpm
+        with:
+          platform: ${{ matrix.platform }}
+
+      - name: Install dependencies (Ubuntu Only)
+        uses: ./.github/actions/install-deps-for-tauri-on-ubuntu
+        with:
+          platform: ${{ matrix.platform }}
+
+      - name: Setup Rust
+        uses: ./.github/actions/setup-rust
+        with:
+          platform: ${{ matrix.platform }}
+
+      - name: Build
+        run: |
+          pnpm tauri build
