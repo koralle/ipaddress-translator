@@ -1,0 +1,46 @@
+name: "Set up frontend with pnpm"
+description: "Set up frontend with pnpm"
+
+inputs:
+  platform:
+    description: ""
+    required: true
+
+runs:
+  using: "composite"
+  steps:
+    # See: https://github.com/actions/setup-node
+    - name: SetUp Node
+      uses: actions/setup-node@v3.6.0
+      with:
+        node-version: 18
+
+    # See: https://github.com/pnpm/action-setup
+    - name: Install pnpm
+      uses: pnpm/action-setup@v2.2.4
+      id: pnpm-install
+      with:
+        version: 7.25.1
+        run_install: false
+
+    # See: https://github.com/pnpm/action-setup
+    - name: Get pnpm store directory
+      id: pnpm-cache
+      shell: bash
+      run: |
+        echo "STORE_PATH=$(pnpm store path)" >> $GITHUB_OUTPUT
+
+    # See: https://github.com/pnpm/action-setup
+    # See: https://github.com/actions/cache
+    - name: Setup pnpm cache
+      uses: actions/cache@v3.2.3
+      with:
+        path: ${{ steps.pnpm-cache.outputs.STORE_PATH }}
+        key: ${{ inputs.platform }}-pnpm-store-${{ hashFiles('**/pnpm-lock.yaml') }}
+        restore-keys: |
+          ${{ inputs.platform }}-pnpm-store-
+
+    - name: Install Dependencies
+      shell: bash
+      run: pnpm install --frozen-lockfile
+

@@ -11,7 +11,9 @@
 # GitHub Actions
 !.github
 !.github/*
-!.github/**/*.yaml
+!.github/workflows/*
+!.github/actions/*
+!.github/actions/**/*.yaml
 
 # VSCode
 !.vscode/*
