@@ -10,7 +10,8 @@
     "lint:fix": "eslint . --fix",
     "fmt": "prettier -w .",
     "fmt:check": "prettier -c .",
-    "fmt:fix": "pnpm fmt"
+    "fmt:fix": "pnpm fmt",
+    "test": "jest"
   },
   "dependencies": {
     "@tauri-apps/api": "^1.2.0",
@@ -52,8 +53,10 @@
     }
   },
   "engines": {
-    "node": "18.x",
-    "pnpm": ">=7.25.1"
+    "node": ">=16.0.0"
+  },
+  "volta": {
+    "node": "18.13.0"
   },
   "os": [
     "darwin",
