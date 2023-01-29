@@ -50,4 +50,9 @@
 # TypeScript
 !tsconfig.json
 
+# Tailwindcss
+!tailwind.config.js
+!postcss.config.js
+
 **/.DS_Store
+
