@@ -1,4 +1,4 @@
-*
+/*
 
 !README.md
 
@@ -26,10 +26,11 @@
 
 # back-end
 !/src-tauri
-!/src-tauri/*
+!src-tauri/src/*
+!src-tauri/src/handlers/*
 !/src-tauri/**/*.rs
-!/src-tauri/icons
-!/src-tauri/icons/*
+
+/src-tauri/target
 
 # ESLint
 !.eslintrc.yaml
