@@ -1,58 +1,17 @@
-/*
+# node_modules
+node_modules
 
-!README.md
+# Distribution
+dist/*
 
-!.gitignore
+# Tauri (Rust)
+src-tauri/target/*
 
-!.npmrc
-!package.json
-!pnpm-lock.yaml
-
-# GitHub Actions
-!.github
-!.github/*
-!.github/workflows/*
-!.github/actions/*
-!.github/actions/**/*.yaml
-
-# VSCode
-!.vscode/*
-
-# front-end
-!src
-!src/*
-!src/**/*.ts
-!src/**/*.tsx
-
-# back-end
-!/src-tauri
-!src-tauri/src/*
-!src-tauri/src/handlers/*
-!/src-tauri/**/*.rs
-
-/src-tauri/target
-
-# ESLint
-!.eslintrc.yaml
-!.eslintignore
-
-# Prettier
-!.prettierrc.yaml
-!.prettierignore
+# Git
+.git/*
 
 # Next.js
-!next.config.js
-!next-env.d.ts
+.next
 
-# Jest
-!jest.config.ts
-
-# TypeScript
-!tsconfig.json
-
-# Tailwindcss
-!tailwind.config.js
-!postcss.config.js
-
+# .DS_Store
 **/.DS_Store
-
