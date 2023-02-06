@@ -1,44 +1,14 @@
-*
+# node_modules
+node_modules/*
 
-# README.md
-!README.md
+# Git
+.git/*
 
-# index.html
-!index.html
+# Distribution
+dist/*
 
-# Source file
-!src
-!src/*
-!src/**/*.ts
-!src/**/*.tsx
-
-# .eslintrc.yaml
-!.eslintrc.yaml
-
-# .prettierrc.yaml
-!.prettierrc.yaml
-
-# package.json
-!package.json
-!pnpm-lock.yaml
-
-# tsconfig.json
-!tsconfig.json
-
-# Jest Config
-jest.config.ts
+# Tauri (Rust)
+src-tauri/*
 
 # Next.js
-next-env.d.ts
-next.config.js
-
-# Test
-!src/__tests__
-!src/__tests__/*
-!src/__tests__/**/*.ts
-!src/__tests__/**/*.tsx
-
-# GitHub Actions
-!.github
-!.github/*
-!.github/**/*.yaml
+.next/*
