@@ -1,20 +1,28 @@
-*
+# node_modules
+node_modules/*
 
-# Source
-!src
-!src/*
-!src/**/*.ts
-!src/**/*.tsx
+# Git
+.git/*
+.github/*
+
+# Tauri (Rust)
+src-tauri/*
+
+# README.md
+README.md
+
+# tsconfig.json
+tsconfig.json
+tsconfig.test.json
+
+# Distribution
+dist/*
 
 # Next.js
-next-env.d.ts
 next.config.js
 
-# Jest Config
-!jest.config.ts
+# Postcss
+postcss.config.js
 
-# Test
-!__tests__
-!__tests__/*
-!__tests__/**/*.ts
-!__tests__/**/*.tsx
+# Tailwind CSS
+tailwind.config.js

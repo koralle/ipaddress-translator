@@ -34,6 +34,7 @@ plugins:
   - react
   - jest
   - jsx-a11y
+  - react-hooks
 rules:
   react/jsx-uses-react: off
   react/jsx-in-jsx-scope: off
@@ -58,6 +59,8 @@ rules:
       varsIgnorePattern: ^_
   simple-import-sort/imports: error
   simple-import-sort/exports: error
+  react-hooks/rules-of-hooks: error
+  react-hooks/exhaustive-deps: warn
 settings:
   react:
     createClass: createReactClass
@@ -73,3 +76,8 @@ overrides:
     rules:
       import/no-default-export: off
       import/prefer-default-export: off
+  - files:
+      - src/__tests__/invokeCommands/*
+    rules:
+      '@typescript-eslint/ban-ts-comment': off
+      jest/no-conditional-expect: off
